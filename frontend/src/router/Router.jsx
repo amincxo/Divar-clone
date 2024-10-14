@@ -12,7 +12,7 @@ import HomePage from 'src/pages/HomePage'
 function Router() {
     const {data , isLoading} = useQuery(["profile"], getProfile)
     console.log({data , isLoading})
-if (isLoading) return <h1>loadingggg</h1>
+// if (isLoading) return <h1>loadingggg</h1>
     return (
     <Routes>
     <Route index element={<HomePage />} />
