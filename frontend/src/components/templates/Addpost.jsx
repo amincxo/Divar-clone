@@ -2,6 +2,9 @@ import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import { getCategory } from "services/admin"
 import styles from "./Addpost.module.css"
+import { getCookie } from "utils/cookie"
+import axios from "axios"
+import toast from "react-hot-toast"
 
 function Addpost() {
     const [form ,setForm] = useState({
@@ -9,8 +12,8 @@ function Addpost() {
         content:"",
         category:"",
         city:"",
-        amount:"",
-        image:"",
+        amount: null,
+        image:null,
     })
     const { data , isFetching } = useQuery(["get-categories"] , getCategory)
     
@@ -24,8 +27,21 @@ function Addpost() {
     }
 
     const addHandler = () => {
+        const formData = new FormData();
         event.preventDefault();
-        console.log(form);
+        for(let i in form) {
+            formData.append(i , form[i]);
+        }
+        const token = getCookie ("accessToken");
+
+        axios.post(`${import.meta.env.VITE_BASE_URL}post/create` , formData , {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `bearer ${token}`
+            }
+        }).then(res => toast.success(res.data.message))
+        .catch(error => toast.error("مشککلی پیش امده کسگم"));
+        
         
     }
     
@@ -37,7 +53,7 @@ function Addpost() {
             <label htmlFor="content">توضیحات</label>
             <textarea name="content" id="content" />
             <label htmlFor="amount">قیمت</label>
-            <input type="text" name="amount" id="amount" />
+            <input type="number" name="amount" id="amount" />
             <label htmlFor="city">شهر</label>
             <input type="text" name="city" id="city" />
             <label htmlFor="category">دسته بندی</label>
@@ -54,6 +70,7 @@ function Addpost() {
             <label htmlFor="image">عکس</label>
             <input type="file" name="image" id="image" />
             <button onClick={addHandler} >ایجاد</button>
+            
         </form>
   )
 }
