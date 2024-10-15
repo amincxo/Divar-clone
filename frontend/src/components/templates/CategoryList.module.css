@@ -1,0 +1,36 @@
+.list {
+    margin: 50px 0 70px;
+}
+
+.list div {
+    display: flex;
+    margin: 20px 0;
+    padding: 15px;
+    border: 2px solid #eaeaea;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.list h5 {
+    margin-right: 10px;
+    font-size: 0.9rem;
+    width: 170px;
+}
+
+.list p {
+    width: 100%;
+    text-align: left;
+    color: #a62626;
+    
+}
+
+.list button {
+    margin-right: 10px;
+    background-color: #a62626; /* قرمز برای نشان دادن حذف */
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
